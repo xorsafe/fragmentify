@@ -1,6 +1,6 @@
 # Fragmentify
 
-Fragmentify is a TypeScript library for managing CRUD operations on abstract linear sections. These sections represent contiguous stretches of data that can be split, expanded, merged, and moved contiguously.
+A TypeScript library for managing CRUD operations on abstract linear sections. These sections represent contiguous stretches of data that can be split, expanded, merged, and moved contiguously.
 
 **Think of it like this:**
 
@@ -19,32 +19,73 @@ The library is also applicable to scenarios like animation timelines, where each
 
 ## Installation
 
-This library hasn't been published yet, but soon you will be
-able to install Fragmentify using npm:
-
 ```bash
 npm install fragmentify
 ```
 
-or using yarn:
-
-```bash
-yarn add fragmentify
-```
-
 ## Usage
 
-(This section will be expanded with more detailed examples as the library develops.  For now, refer to the source code for usage details.)
+```typescript
+import { SplitDistribution, Block, BaseCloner } from 'fragmentify';
+
+// Create a new instance
+const splitDistribution = new SplitDistribution();
+
+// Create blocks from splits
+const blocks = splitDistribution.fromSplitsToContiguousBlocks(0, 10, 20, 30, 40);
+
+// Change block size
+const modifiedBlock = splitDistribution.changeBlockSize(blocks[0], true, 5, BaseCloner, 0, 100);
+
+// Merge blocks
+const mergedBlocks = splitDistribution.merge(1, true, blocks);
+
+// Remove a block
+const remainingBlocks = splitDistribution.remove(blocks[0], blocks);
+
+// Apply a new block
+const newBlock: Block = { start: 15, end: 25, index: -1 };
+const updatedBlocks = splitDistribution.apply(newBlock, blocks);
+```
+
+## API
+
+### Block Interface
 
 ```typescript
-// Example usage (placeholder - actual implementation will vary)
-// import { FragmentManager } from 'fragmentify';
+interface Block {
+    start: number;  // Starting value on the range
+    end: number;    // Ending value on the range
+    index: number;  // Index in the main array that holds it
+}
+```
 
-// const fragmentManager = new FragmentManager<DataType>();
+### Main Methods
 
-// ... more code to follow
+- `fromSplitsToContiguousBlocks(start: number, ...splits: number[]): Block[]`
+- `constructContiguousBlocksFrom(totalSplits: number, low: number = 0, high: number = 100): Block[]`
+- `changeBlockSize(block: Block, fromStart: boolean, by: number, clone: CloneBlock, low: number, high: number): Block`
+- `apply(block: Block, array: Block[]): Block[]`
+- `remove(block: Block, array: Block[], replaceRatio: number = 0.5): Block[] | null`
+- `merge(index: number, withPrevious: boolean, array: Block[]): Block[]`
+- `move(picker: number, delta: number, current: Block, array: Block[]): [number, Block]`
+- `areOverlapping(a: Block, b: Block): boolean`
+- `isValid(block: Block): boolean`
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+npm run test:watch
+
+# Build
+npm run build
 ```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+ISC

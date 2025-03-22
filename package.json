@@ -1,7 +1,7 @@
 {
   "name": "fragmentify",
   "version": "1.0.0",
-  "description": "Fragmentify is a TypeScript library for managing CRUD operations on abstract linear sections. These sections represent contiguous stretches of data that can be split, expanded, merged, and moved contiguously.",
+  "description": "A TypeScript library for managing CRUD operations on abstract linear sections. These sections represent contiguous stretches of data that can be split, expanded, merged, and moved contiguously.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -10,7 +10,13 @@
     "test:watch": "jest --watch",
     "prepare": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "typescript",
+    "blocks",
+    "ranges",
+    "splits",
+    "distribution"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
