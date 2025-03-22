@@ -1,4 +1,4 @@
 
 export * from './types';
-export * from './split-distribution';
+export * from './splittable-range';
 export * from './utils'; 
